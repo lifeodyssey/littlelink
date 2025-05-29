@@ -2,8 +2,6 @@ name: 🤖 Build FAQs and Deploy
 
 on:
   push:
-    paths:
-      - 'data/faqs-*.md'
     branches:
       - main
   pull_request:
