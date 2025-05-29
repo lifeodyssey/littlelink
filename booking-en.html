@@ -31,43 +31,64 @@
       .faq-item {
         margin-bottom: 1.5rem;
         background-color: var(--button-background);
-        border-radius: 1rem;
+        border-radius: 0.5rem;
         padding: 1.5rem;
         transition: all 0.3s ease;
         cursor: pointer;
+        border: 1px solid var(--button-border-color, rgba(0, 0, 0, 0.1));
       }
 
       .faq-item:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       }
 
       .faq-question {
-        font-weight: 700;
+        font-weight: 600;
         font-size: 1.1rem;
-        margin-bottom: 1rem;
         color: var(--heading-color);
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding-right: 2rem;
+        position: relative;
       }
 
       .faq-question::after {
-        content: '+';
-        font-size: 1.5rem;
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 12px;
+        height: 2px;
+        background-color: currentColor;
+        transform: translateY(-50%);
         transition: transform 0.3s ease;
       }
 
-      .faq-item.active .faq-question::after {
-        transform: rotate(45deg);
+      .faq-question::before {
+        content: '';
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        width: 2px;
+        height: 12px;
+        background-color: currentColor;
+        transform: translateY(-50%);
+        transition: transform 0.3s ease;
+      }
+
+      .faq-item.active .faq-question::before {
+        transform: translateY(-50%) rotate(90deg);
       }
 
       .faq-answer {
         color: var(--text-color);
         max-height: 0;
         overflow: hidden;
-        transition: max-height 0.5s ease;
+        transition: all 0.5s ease;
         opacity: 0;
+        margin-top: 0;
       }
 
       .faq-item.active .faq-answer {
@@ -82,6 +103,8 @@
       }
 
       .language-toggle a {
+        display: inline-flex;
+        align-items: center;
         padding: 0.5rem 1rem;
         margin-left: 0.5rem;
         border-radius: 0.5rem;
@@ -90,10 +113,12 @@
         text-decoration: none;
         font-size: 0.9rem;
         transition: all 0.2s ease;
+        border: 1px solid var(--button-border-color, rgba(0, 0, 0, 0.1));
       }
 
       .language-toggle a:hover {
         transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       }
 
       .language-toggle a.active {
@@ -105,38 +130,56 @@
         margin-bottom: 3rem;
       }
 
-      h2 {
-        margin-bottom: 1.5rem;
+      .section-title {
         font-size: 1.5rem;
+        font-weight: 600;
         color: var(--heading-color);
+        margin-bottom: 1.5rem;
+        text-align: left;
       }
 
       .note-item {
-        padding: 1rem;
+        padding: 1.25rem;
         margin-bottom: 1rem;
         background-color: var(--button-background);
         border-left: 4px solid var(--heading-color);
         border-radius: 0.5rem;
         transition: all 0.2s ease;
+        border: 1px solid var(--button-border-color, rgba(0, 0, 0, 0.1));
       }
 
       .note-item:hover {
         transform: translateX(4px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .button-group {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1.5rem;
       }
 
       @media (prefers-color-scheme: dark) {
-        .faq-item {
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        .faq-item,
+        .note-item,
+        .language-toggle a {
+          border-color: rgba(255, 255, 255, 0.1);
         }
       }
 
       @media (max-width: 768px) {
-        .faq-item {
+        .faq-item,
+        .note-item {
           padding: 1rem;
         }
 
         .faq-question {
           font-size: 1rem;
+        }
+
+        .button-group {
+          gap: 0.75rem;
         }
       }
     </style>
@@ -164,7 +207,7 @@
 
             <!-- Important Notes Section -->
             <div class="section">
-              <h2>Important Notes</h2>
+              <h2 class="section-title">Important Notes</h2>
 
               <div class="note-item">
                 <p>Please be mindful of time zones when booking appointments.</p>
@@ -185,23 +228,31 @@
 
             <!-- Booking Section -->
             <div class="section">
-              <h2>Book a Meeting</h2>
+              <h2 class="section-title">Book a Meeting</h2>
 
               <p>Ready to schedule a meeting? Choose an option below:</p>
 
-              <!-- 30-minute Calendly button -->
-              <a class="button button-calendly" href="https://calendly.com/zhenjiazhou0127/30min" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/calendly.svg" alt="Calendly Logo">Schedule 30 Minutes</a>
+              <div class="button-group">
+                <!-- 30-minute Calendly button -->
+                <a class="button button-calendly" href="https://calendly.com/zhenjiazhou0127/30min" target="_blank" rel="noopener" role="button">
+                  <img class="icon" aria-hidden="true" src="images/icons/calendly.svg" alt="Calendly Logo">Schedule 30 Minutes
+                </a>
 
-              <!-- 1-hour Calendly button -->
-              <a class="button button-calendly" href="https://calendly.com/zhenjiazhou0127/new-meeting" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/calendly.svg" alt="Calendly Logo">Schedule 1 Hour</a>
+                <!-- 1-hour Calendly button -->
+                <a class="button button-calendly" href="https://calendly.com/zhenjiazhou0127/new-meeting" target="_blank" rel="noopener" role="button">
+                  <img class="icon" aria-hidden="true" src="images/icons/calendly.svg" alt="Calendly Logo">Schedule 1 Hour
+                </a>
 
-              <!-- Email button -->
-              <a class="button button-default" href="mailto:zhenjiazhou0127@outlook.com" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-email.svg" alt="Email Icon">Book via Email</a>
+                <!-- Email button -->
+                <a class="button button-default" href="mailto:zhenjiazhou0127@outlook.com" target="_blank" rel="noopener" role="button">
+                  <img class="icon" aria-hidden="true" src="images/icons/generic-email.svg" alt="Email Icon">Book via Email
+                </a>
+              </div>
             </div>
 
             <!-- FAQ Section -->
             <div class="section">
-              <h2>Frequently Asked Questions</h2>
+              <h2 class="section-title">Frequently Asked Questions</h2>
 
               <div id="faq-container">
                 <!-- FAQs will be loaded here via JavaScript -->
