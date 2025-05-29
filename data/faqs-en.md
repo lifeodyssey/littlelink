@@ -21,7 +21,9 @@ I want to relocate to Japan and work in Japan as a 正社員 (full-time employee
     -   Experienced in helping team members write clean, readable, and scalable code.
     -   Experienced in sharing new tools, technologies, and good practices within the team.
 
-**Years of Experience: Approximately 3 years**
+## Years of Experience
+
+**Approximately 3 years**
 
 You can consider that I have three years of experience with all of the following tech stacks:
 
