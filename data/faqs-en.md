@@ -3,7 +3,7 @@
 
 ## Current Role and Expectation
 
-I currently work at ThoughtWorks. It is an American company, and I work for its Chengdu office in mainland China.
+I currently work at ThoughtWorks as Backend Developer and DevOps Engineer. It is an American company, and I work for its Chengdu office in mainland China.
 
 I want to relocate to Japan and work in Japan as a 正社員 (full-time employee).
 

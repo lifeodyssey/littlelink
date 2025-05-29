@@ -484,14 +484,19 @@ ul li {
   align-items: center;
 }
 
-/* FAQ Container - Desktop optimized */
+/* FAQ Container - Desktop optimized single column */
 #faq-container {
   display: grid;
+  grid-template-columns: 1fr;
   gap: 1.5rem;
   margin-top: var(--spacing-l);
+  max-width: 70rem; /* Wider than the main content */
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
 }
 
-/* FAQ Items - Enhanced styling */
+/* FAQ Items - Enhanced styling for wider cards */
 .faq-item {
   background-color: var(--button-background, #ffffff);
   border: 1px solid var(--button-border-color, rgba(0, 0, 0, 0.1));
@@ -499,6 +504,7 @@ ul li {
   overflow: hidden;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  width: 100%;
 }
 
 .faq-item:hover {
@@ -583,9 +589,48 @@ ul li {
   color: var(--link-hover-color, #083BDA);
 }
 
-/* Code styling in FAQ answers */
+/* Enhanced markdown styling in FAQ answers */
+.faq-answer h1, .faq-answer h2, .faq-answer h3,
+.faq-answer h4, .faq-answer h5, .faq-answer h6 {
+  margin: 1.5rem 0 1rem 0;
+  font-weight: 600;
+  color: var(--heading-color, #1a1a1a);
+}
+
+.faq-answer h1 { font-size: 1.8rem; }
+.faq-answer h2 { font-size: 1.6rem; }
+.faq-answer h3 { font-size: 1.4rem; }
+.faq-answer h4 { font-size: 1.2rem; }
+.faq-answer h5 { font-size: 1.1rem; }
+.faq-answer h6 { font-size: 1rem; }
+
+.faq-answer blockquote {
+  margin: 1rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 4px solid var(--link-color, #2457F5);
+  background-color: var(--button-background, rgba(36, 87, 245, 0.05));
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.faq-answer blockquote p {
+  margin: 0;
+  font-style: italic;
+}
+
+.faq-answer hr {
+  margin: 2rem 0;
+  border: none;
+  height: 1px;
+  background-color: var(--button-border-color, rgba(0, 0, 0, 0.1));
+}
+
+.faq-answer del {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
 .faq-answer code {
-  background-color: var(--code-background, #f1f3f4);
+  background-color: var(--button-background, rgba(0, 0, 0, 0.05));
   padding: 0.2rem 0.4rem;
   border-radius: 0.25rem;
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
@@ -593,7 +638,7 @@ ul li {
 }
 
 .faq-answer pre {
-  background-color: var(--code-background, #f1f3f4);
+  background-color: var(--button-background, rgba(0, 0, 0, 0.05));
   padding: 1rem;
   border-radius: 0.5rem;
   overflow-x: auto;
@@ -603,7 +648,44 @@ ul li {
 .faq-answer pre code {
   background: none;
   padding: 0;
+  border-radius: 0;
 }
+
+.faq-answer table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  border: 1px solid var(--button-border-color, rgba(0, 0, 0, 0.1));
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.faq-answer th, .faq-answer td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--button-border-color, rgba(0, 0, 0, 0.1));
+}
+
+.faq-answer th {
+  background-color: var(--button-background, rgba(0, 0, 0, 0.05));
+  font-weight: 600;
+}
+
+.faq-answer tr:last-child td {
+  border-bottom: none;
+}
+
+.faq-answer ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.faq-answer ol li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+
 
 /* Responsive design for desktop */
 @media (min-width: 768px) {
@@ -632,9 +714,9 @@ ul li {
     max-width: 60rem; /* 960px for larger screens */
   }
 
-  /* Two-column layout for FAQ on large screens */
+  /* Keep single column layout for FAQ on large screens */
   #faq-container {
-    grid-template-columns: 1fr 1fr;
+    max-width: 75rem; /* Even wider on large screens */
     gap: 2rem;
   }
 }
@@ -660,6 +742,37 @@ ul li {
     background-color: #ffffff;
     color: #121212;
   }
+
+  /* Dark theme markdown elements */
+  :root.theme-auto .faq-answer blockquote {
+    background-color: rgba(36, 87, 245, 0.1);
+    border-left-color: #4a9eff;
+  }
+
+  :root.theme-auto .faq-answer code {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  :root.theme-auto .faq-answer pre {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  :root.theme-auto .faq-answer table {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  :root.theme-auto .faq-answer th {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  :root.theme-auto .faq-answer th,
+  :root.theme-auto .faq-answer td {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+
+  :root.theme-auto .faq-answer hr {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
 }
 
 :root.theme-dark .faq-item,
@@ -680,6 +793,37 @@ ul li {
 :root.theme-dark .language-toggle a.active {
   background-color: #ffffff;
   color: #121212;
+}
+
+/* Dark theme markdown elements */
+:root.theme-dark .faq-answer blockquote {
+  background-color: rgba(36, 87, 245, 0.1);
+  border-left-color: #4a9eff;
+}
+
+:root.theme-dark .faq-answer code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+:root.theme-dark .faq-answer pre {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+:root.theme-dark .faq-answer table {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+:root.theme-dark .faq-answer th {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+:root.theme-dark .faq-answer th,
+:root.theme-dark .faq-answer td {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+:root.theme-dark .faq-answer hr {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Mobile responsive adjustments */
