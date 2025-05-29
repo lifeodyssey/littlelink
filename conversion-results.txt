@@ -1,0 +1,2 @@
+- faqs-en.md: 9 FAQ items
+- faqs-jp.md: 9 FAQ items
