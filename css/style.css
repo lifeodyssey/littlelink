@@ -565,14 +565,48 @@ ul li {
   margin-bottom: 0;
 }
 
+/* Enhanced list styling for FAQ answers */
 .faq-answer ul {
   margin: 1rem 0;
   padding-left: 1.5rem;
+  list-style-type: disc; /* Restore bullet points */
+}
+
+.faq-answer ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+  list-style-type: decimal; /* Restore numbers */
+}
+
+/* Nested list styling */
+.faq-answer ul ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+  list-style-type: circle; /* Different bullet for nested lists */
+}
+
+.faq-answer ul ul ul {
+  list-style-type: square; /* Third level bullets */
+}
+
+.faq-answer ol ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+  list-style-type: lower-alpha; /* a, b, c for nested ordered lists */
+}
+
+.faq-answer ol ol ol {
+  list-style-type: lower-roman; /* i, ii, iii for third level */
 }
 
 .faq-answer li {
   margin-bottom: 0.5rem;
   line-height: 1.6;
+}
+
+/* Ensure proper spacing for nested list items */
+.faq-answer li li {
+  margin-bottom: 0.25rem;
 }
 
 .faq-answer strong {
@@ -675,15 +709,7 @@ ul li {
   border-bottom: none;
 }
 
-.faq-answer ol {
-  margin: 1rem 0;
-  padding-left: 1.5rem;
-}
 
-.faq-answer ol li {
-  margin-bottom: 0.5rem;
-  line-height: 1.6;
-}
 
 
 
