@@ -1,0 +1,206 @@
+name: 🤖 Build FAQs and Deploy
+
+on:
+  push:
+    paths:
+      - 'data/faqs-*.md'
+    branches:
+      - main
+  pull_request:
+    paths:
+      - 'data/faqs-*.md'
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+    - name: 📥 Checkout main branch
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+        ref: main
+
+    - name: 🟢 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '24'
+
+    - name: 🔄 Convert Markdown FAQs to JSON
+      run: |
+        echo "🚀 Starting FAQ Markdown conversion..."
+
+        # Use existing conversion script if available
+        if [ -f "convert-faqs.js" ]; then
+          echo "📄 Using existing conversion script"
+          node convert-faqs.js
+        else
+          echo "📝 Creating temporary conversion script"
+          cat > temp-convert.js << 'EOF'
+        const fs = require('fs');
+        const path = require('path');
+
+        function parseMarkdownToJSON(markdownContent) {
+          const sections = markdownContent.split(/^## /m).slice(1);
+          const faqs = [];
+
+          sections.forEach(section => {
+            const lines = section.trim().split('\n');
+            const question = lines[0].trim();
+            const answerLines = lines.slice(1);
+
+            while (answerLines.length > 0 && answerLines[0].trim() === '') {
+              answerLines.shift();
+            }
+
+            const answer = answerLines.join('\n').trim();
+
+            if (question && answer) {
+              faqs.push({ question, answer });
+            }
+          });
+
+          return { faqs };
+        }
+
+        const dataDir = path.join(__dirname, 'data');
+        const files = fs.readdirSync(dataDir).filter(file =>
+          file.startsWith('faqs-') && file.endsWith('.md')
+        );
+
+        let totalProcessed = 0;
+        const results = [];
+
+        files.forEach(file => {
+          const markdownPath = path.join(dataDir, file);
+          const jsonPath = path.join(dataDir, file.replace('.md', '.json'));
+
+          try {
+            const markdownContent = fs.readFileSync(markdownPath, 'utf8');
+            const jsonData = parseMarkdownToJSON(markdownContent);
+
+            fs.writeFileSync(jsonPath, JSON.stringify(jsonData, null, 2), 'utf8');
+
+            console.log(`✅ ${file} -> ${path.basename(jsonPath)} (${jsonData.faqs.length} items)`);
+            results.push(`- ${file}: ${jsonData.faqs.length} FAQ items`);
+            totalProcessed += jsonData.faqs.length;
+          } catch (error) {
+            console.error(`❌ Conversion failed: ${file}`, error.message);
+            process.exit(1);
+          }
+        });
+
+        console.log(`\n🎉 Successfully processed ${files.length} files, ${totalProcessed} FAQ items total`);
+
+        // Output results for subsequent steps
+        fs.writeFileSync('conversion-results.txt', results.join('\n'));
+        EOF
+
+          node temp-convert.js
+        fi
+
+    - name: 🔄 Checkout deploy branch
+      run: |
+        echo "🔄 Switching to deploy branch..."
+
+        # Configure Git
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+
+        # Check if deploy branch exists
+        if git ls-remote --heads origin deploy | grep -q deploy; then
+          echo "📥 Deploy branch exists, checking out..."
+          git fetch origin deploy
+          git checkout deploy
+        else
+          echo "🆕 Creating new deploy branch..."
+          git checkout -b deploy
+        fi
+
+        # Merge main branch content (without committing)
+        echo "🔀 Merging main branch content..."
+        git merge main --no-commit --allow-unrelated-histories || true
+
+        # Reset any conflicts and keep main's content
+        git reset HEAD
+        git checkout main -- .
+
+    - name: 📋 Copy generated JSON files
+      run: |
+        echo "📋 Copying generated JSON files to deploy branch..."
+
+        # Ensure we're on deploy branch
+        git checkout deploy
+
+        # Copy JSON files from main branch build
+        if ls data/faqs-*.json 1> /dev/null 2>&1; then
+          echo "✅ JSON files found, copying to deploy branch"
+          cp data/faqs-*.json . 2>/dev/null || true
+        else
+          echo "❌ No JSON files found to copy"
+        fi
+
+    - name: 🚀 Deploy to deploy branch
+      if: github.ref == 'refs/heads/main'
+      run: |
+        echo "🚀 Deploying to deploy branch..."
+
+        # Add all changes
+        git add .
+
+        # Check if there are changes to commit
+        if git diff --cached --quiet; then
+          echo "ℹ️ No changes to deploy"
+        else
+          echo "📝 Committing changes to deploy branch..."
+          git commit -m "🤖 Auto-deploy: Update FAQ JSON files
+
+          📋 Updated content:
+          $(cat conversion-results.txt 2>/dev/null || echo '- Auto-generated JSON files')
+
+          🔗 Source commit: ${{ github.sha }}
+          🔗 Triggered by: ${{ github.actor }}
+          🕐 Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+
+          echo "🚀 Pushing to deploy branch..."
+          git push origin deploy
+
+          echo "✅ Successfully deployed to deploy branch!"
+        fi
+
+    - name: 📊 Generate Summary
+      run: |
+        echo "## 📋 FAQ Build & Deploy Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+
+        echo "### 🔄 Processing Results:" >> $GITHUB_STEP_SUMMARY
+        if [ -f "conversion-results.txt" ]; then
+          cat conversion-results.txt >> $GITHUB_STEP_SUMMARY
+        fi
+        echo "" >> $GITHUB_STEP_SUMMARY
+
+        echo "### 📁 File Status:" >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+        ls -la data/faqs-*.md data/faqs-*.json 2>/dev/null || echo "No FAQ files found"
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+
+        echo "### 🚀 Deployment:" >> $GITHUB_STEP_SUMMARY
+        if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+          echo "✅ **Status**: Files processed and deployed to \`deploy\` branch" >> $GITHUB_STEP_SUMMARY
+          echo "🌐 **Cloudflare Pages**: Will auto-deploy from \`deploy\` branch" >> $GITHUB_STEP_SUMMARY
+          echo "📋 **Workflow**: main (Markdown) → deploy (with JSON) → Cloudflare Pages" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "ℹ️ **Status**: Files processed but not deployed (not main branch)" >> $GITHUB_STEP_SUMMARY
+        fi
+
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 📖 Instructions:" >> $GITHUB_STEP_SUMMARY
+        echo "- **Edit FAQs**: Modify \`data/faqs-*.md\` files in main branch" >> $GITHUB_STEP_SUMMARY
+        echo "- **Auto-deploy**: Push to main branch triggers this workflow" >> $GITHUB_STEP_SUMMARY
+        echo "- **Cloudflare Pages**: Configure to deploy from \`deploy\` branch" >> $GITHUB_STEP_SUMMARY

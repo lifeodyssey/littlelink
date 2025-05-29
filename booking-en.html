@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html class="theme-auto" lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Page Title -->
+    <title>Book Time with Zhenjia</title>
+    <link rel="icon" type="image/x-icon" href="/images/avatar.png">
+
+    <!-- Meta Description -->
+    <meta name="description" content="Book a time slot with Zhenjia Zhou.">
+
+    <!-- Keywords -->
+    <meta name="keywords" content="Zhenjia Zhou, Booking, Consultation, FAQs">
+
+    <!-- Canonical URL -->
+    <meta rel="canonical" href="https://link.zhenjia.org/booking">
+
+    <!-- Author Information -->
+    <meta name="author" content="Zhenjia Zhou">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/brands.css">
+
+    <style>
+      .faq-item {
+        margin-bottom: 20px;
+        background-color: var(--button-background);
+        border-radius: 8px;
+        padding: 15px;
+        transition: all 0.2s ease;
+      }
+
+      .faq-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .faq-question {
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      .faq-answer {
+        color: var(--text-color);
+      }
+
+      .language-toggle {
+        text-align: right;
+        margin-bottom: 20px;
+      }
+
+      .language-toggle a {
+        padding: 5px 10px;
+        margin-left: 5px;
+        border-radius: 4px;
+        background: var(--button-background);
+        color: var(--heading-color);
+        text-decoration: none;
+        font-size: 0.9em;
+      }
+
+      .section {
+        margin-bottom: 40px;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+        font-size: 1.5em;
+      }
+
+      .note-item {
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: var(--button-background);
+        border-left: 4px solid var(--heading-color);
+        border-radius: 4px;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .faq-item {
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+      }
+    </style>
+  </head>
+
+<body>
+    <div class="container">
+        <div class="column">
+            <nav role="navigation">
+                <a href="index.html" aria-label="Back to homepage">← Back to main page</a>
+            </nav>
+
+            <div class="language-toggle">
+              <a href="#" class="active">English</a>
+              <a href="booking-jp.html">日本語</a>
+            </div>
+
+            <img class="avatar avatar--rounded" src="images/avatar.png" srcset="images/avatar@2x.png" alt="Zhenjia Zhou">
+
+            <h1>Book Time with Zhenjia</h1>
+
+            <div class="section">
+              <p>Before scheduling a meeting, please check the FAQs below - your question might already be answered!</p>
+            </div>
+
+            <!-- Important Notes Section -->
+            <div class="section">
+              <h2>Important Notes</h2>
+
+              <div class="note-item">
+                <p>Please be mindful of time zones when booking appointments.</p>
+              </div>
+
+              <div class="note-item">
+                <p>I am not currently in Japan, so I prefer not to receive direct phone calls.</p>
+              </div>
+
+              <div class="note-item">
+                <p>After booking confirmation, you will see my Zoom link. If you have your own meeting link, you can include it in the notes.</p>
+              </div>
+
+              <div class="note-item">
+                <p>I've listed some frequently asked questions below. Please make sure you've reviewed them before our meeting.</p>
+              </div>
+            </div>
+
+            <!-- Booking Section -->
+            <div class="section">
+              <h2>Book a Meeting</h2>
+
+              <p>Ready to schedule a meeting? Choose an option below:</p>
+
+              <!-- 30-minute Calendly button -->
+              <a class="button button-calendly" href="https://calendly.com/zhenjiazhou0127/30min" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/calendly.svg" alt="Calendly Logo">Schedule 30 Minutes</a>
+
+              <!-- 1-hour Calendly button -->
+              <a class="button button-calendly" href="https://calendly.com/zhenjiazhou0127/new-meeting" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/calendly.svg" alt="Calendly Logo">Schedule 1 Hour</a>
+
+              <!-- Email button -->
+              <a class="button button-default" href="mailto:zhenjiazhou0127@outlook.com" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-email.svg" alt="Email Icon">Book via Email</a>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="section">
+              <h2>Frequently Asked Questions</h2>
+
+              <div id="faq-container">
+                <!-- FAQs will be loaded here via JavaScript -->
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <footer>
+              <a href="privacy.html">Privacy Policy</a> | The life odyssey of Zhenjia</a>
+            </footer>
+        </div>
+    </div>
+
+    <!-- FAQ Loader Script -->
+    <script src="js/faq-loader.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const faqLoader = new FAQLoader('faq-container');
+
+        faqLoader.loadFAQs('data/faqs-en.json', {
+          loadingText: 'Loading FAQs...',
+          errorText: 'Sorry, there was an error loading the FAQs. Please try again later.',
+          emptyText: 'No FAQs available at the moment.'
+        });
+      });
+    </script>
+
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "711e59e527f64c0088452a8d761b2ef4"}'></script>
+    <!-- End Cloudflare Web Analytics -->
+</body>
+
+</html>
