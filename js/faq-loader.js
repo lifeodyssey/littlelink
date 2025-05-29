@@ -20,6 +20,10 @@ class FAQLoader {
     // Escape HTML entities first
     text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+    // Convert horizontal rules
+    text = text.replace(/^---+$/gm, '<hr>');
+    text = text.replace(/^\*\*\*+$/gm, '<hr>');
+
     // Convert code blocks (triple backticks)
     text = text.replace(/```(\w+)?\n([\s\S]*?)```/g, function(_, lang, code) {
       const language = lang ? ` class="language-${lang}"` : '';
@@ -29,9 +33,16 @@ class FAQLoader {
     // Convert inline code (single backticks)
     text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
 
-    // Convert headers (## and ###)
+    // Convert headers (all levels)
+    text = text.replace(/^###### (.+)$/gm, '<h6>$1</h6>');
+    text = text.replace(/^##### (.+)$/gm, '<h5>$1</h5>');
+    text = text.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
     text = text.replace(/^### (.+)$/gm, '<h3>$1</h3>');
     text = text.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+    text = text.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+
+    // Convert strikethrough text
+    text = text.replace(/~~(.*?)~~/g, '<del>$1</del>');
 
     // Convert bold text
     text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
@@ -42,15 +53,23 @@ class FAQLoader {
     // Convert links [text](url)
     text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
 
-    // Convert list items (handle nested lists)
+    // Convert blockquotes
+    text = text.replace(/^> (.+)$/gm, '<blockquote><p>$1</p></blockquote>');
+
+    // Convert list items (handle nested lists and ordered lists)
     const lines = text.split('\n');
     let inList = false;
     let listLevel = 0;
+    let listType = 'ul'; // 'ul' for unordered, 'ol' for ordered
     const processedLines = [];
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
-      const listMatch = line.match(/^(\s*)-\s+(.+)$/);
+      const unorderedMatch = line.match(/^(\s*)-\s+(.+)$/);
+      const orderedMatch = line.match(/^(\s*)\d+\.\s+(.+)$/);
+
+      const listMatch = unorderedMatch || orderedMatch;
+      const currentListType = unorderedMatch ? 'ul' : 'ol';
 
       if (listMatch) {
         const indent = listMatch[1].length;
@@ -58,24 +77,30 @@ class FAQLoader {
         const currentLevel = Math.floor(indent / 4);
 
         if (!inList) {
-          processedLines.push('<ul>');
+          processedLines.push(`<${currentListType}>`);
           inList = true;
           listLevel = currentLevel;
+          listType = currentListType;
         } else if (currentLevel > listLevel) {
-          processedLines.push('<ul>');
+          processedLines.push(`<${currentListType}>`);
           listLevel = currentLevel;
         } else if (currentLevel < listLevel) {
           for (let j = listLevel; j > currentLevel; j--) {
-            processedLines.push('</ul>');
+            processedLines.push(`</${listType}>`);
           }
           listLevel = currentLevel;
+        } else if (currentListType !== listType) {
+          // Close current list and start new one if type changes
+          processedLines.push(`</${listType}>`);
+          processedLines.push(`<${currentListType}>`);
+          listType = currentListType;
         }
 
         processedLines.push(`<li>${content}</li>`);
       } else {
         if (inList) {
           for (let j = 0; j <= listLevel; j++) {
-            processedLines.push('</ul>');
+            processedLines.push(`</${listType}>`);
           }
           inList = false;
           listLevel = 0;
@@ -87,11 +112,14 @@ class FAQLoader {
     // Close any remaining lists
     if (inList) {
       for (let j = 0; j <= listLevel; j++) {
-        processedLines.push('</ul>');
+        processedLines.push(`</${listType}>`);
       }
     }
 
     text = processedLines.join('\n');
+
+    // Convert tables
+    text = this.convertTables(text);
 
     // Handle paragraphs: split by double newlines, but preserve existing HTML tags
     const paragraphs = text.split(/\n\s*\n/);
@@ -100,12 +128,17 @@ class FAQLoader {
       if (!para) return '';
 
       // Don't wrap if it's already an HTML block element
-      if (para.match(/^<(h[1-6]|ul|ol|li|pre|code|div|blockquote)/i)) {
+      if (para.match(/^<(h[1-6]|ul|ol|li|pre|code|div|blockquote|table|hr)/i)) {
         return para;
       }
 
       // Don't wrap if it's just a closing tag
-      if (para.match(/^<\/(ul|ol|li|pre|code|div|blockquote)/i)) {
+      if (para.match(/^<\/(ul|ol|li|pre|code|div|blockquote|table)/i)) {
+        return para;
+      }
+
+      // Don't wrap if it's a self-closing tag
+      if (para.match(/^<(hr|br)\s*\/?>$/i)) {
         return para;
       }
 
@@ -122,6 +155,84 @@ class FAQLoader {
     text = text.replace(/\n+/g, '\n');
 
     return text.trim();
+  }
+
+  /**
+   * Convert markdown tables to HTML
+   * @param {string} text - Text containing potential tables
+   * @returns {string} - Text with tables converted to HTML
+   */
+  convertTables(text) {
+    const lines = text.split('\n');
+    const processedLines = [];
+    let inTable = false;
+    let tableHeaders = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+
+      // Check if this line looks like a table row (contains |)
+      if (line.includes('|') && line.length > 1) {
+        const cells = line.split('|').map(cell => cell.trim()).filter(cell => cell);
+
+        // Check if next line is a separator (contains --- or similar)
+        const nextLine = i + 1 < lines.length ? lines[i + 1].trim() : '';
+        const isSeparator = nextLine.match(/^\|?[\s\-\|:]+\|?$/);
+
+        if (!inTable) {
+          // Start new table
+          processedLines.push('<table>');
+          inTable = true;
+
+          if (isSeparator) {
+            // This is a header row
+            processedLines.push('<thead>');
+            processedLines.push('<tr>');
+            cells.forEach(cell => {
+              processedLines.push(`<th>${cell}</th>`);
+            });
+            processedLines.push('</tr>');
+            processedLines.push('</thead>');
+            processedLines.push('<tbody>');
+            tableHeaders = cells;
+            i++; // Skip the separator line
+          } else {
+            // Regular row
+            processedLines.push('<tbody>');
+            processedLines.push('<tr>');
+            cells.forEach(cell => {
+              processedLines.push(`<td>${cell}</td>`);
+            });
+            processedLines.push('</tr>');
+          }
+        } else {
+          // Continue table
+          processedLines.push('<tr>');
+          cells.forEach(cell => {
+            processedLines.push(`<td>${cell}</td>`);
+          });
+          processedLines.push('</tr>');
+        }
+      } else {
+        // Not a table row
+        if (inTable) {
+          // End current table
+          processedLines.push('</tbody>');
+          processedLines.push('</table>');
+          inTable = false;
+          tableHeaders = [];
+        }
+        processedLines.push(line);
+      }
+    }
+
+    // Close table if still open
+    if (inTable) {
+      processedLines.push('</tbody>');
+      processedLines.push('</table>');
+    }
+
+    return processedLines.join('\n');
   }
 
   /**
