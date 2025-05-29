@@ -58,9 +58,7 @@ class FAQLoader {
 
     // Convert list items (handle nested lists and ordered lists)
     const lines = text.split('\n');
-    let inList = false;
-    let listLevel = 0;
-    let listType = 'ul'; // 'ul' for unordered, 'ol' for ordered
+    let listStack = []; // Stack to track nested lists: [{type: 'ul', level: 0}, ...]
     const processedLines = [];
 
     for (let i = 0; i < lines.length; i++) {
@@ -74,46 +72,43 @@ class FAQLoader {
       if (listMatch) {
         const indent = listMatch[1].length;
         const content = listMatch[2];
+        // Calculate level: every 4 spaces = 1 level (standard markdown)
         const currentLevel = Math.floor(indent / 4);
 
-        if (!inList) {
+        // Close lists that are at the same level or deeper
+        while (listStack.length > 0 && listStack[listStack.length - 1].level >= currentLevel) {
+          const closingList = listStack.pop();
+          processedLines.push(`</${closingList.type}>`);
+        }
+
+        // Open new list if needed
+        if (listStack.length === 0 || listStack[listStack.length - 1].level < currentLevel) {
           processedLines.push(`<${currentListType}>`);
-          inList = true;
-          listLevel = currentLevel;
-          listType = currentListType;
-        } else if (currentLevel > listLevel) {
+          listStack.push({ type: currentListType, level: currentLevel });
+        } else if (listStack[listStack.length - 1].type !== currentListType) {
+          // Same level but different type - close and open new
+          const closingList = listStack.pop();
+          processedLines.push(`</${closingList.type}>`);
           processedLines.push(`<${currentListType}>`);
-          listLevel = currentLevel;
-        } else if (currentLevel < listLevel) {
-          for (let j = listLevel; j > currentLevel; j--) {
-            processedLines.push(`</${listType}>`);
-          }
-          listLevel = currentLevel;
-        } else if (currentListType !== listType) {
-          // Close current list and start new one if type changes
-          processedLines.push(`</${listType}>`);
-          processedLines.push(`<${currentListType}>`);
-          listType = currentListType;
+          listStack.push({ type: currentListType, level: currentLevel });
         }
 
         processedLines.push(`<li>${content}</li>`);
+
       } else {
-        if (inList) {
-          for (let j = 0; j <= listLevel; j++) {
-            processedLines.push(`</${listType}>`);
-          }
-          inList = false;
-          listLevel = 0;
+        // Not a list item - close all open lists
+        while (listStack.length > 0) {
+          const closingList = listStack.pop();
+          processedLines.push(`</${closingList.type}>`);
         }
         processedLines.push(line);
       }
     }
 
     // Close any remaining lists
-    if (inList) {
-      for (let j = 0; j <= listLevel; j++) {
-        processedLines.push(`</${listType}>`);
-      }
+    while (listStack.length > 0) {
+      const closingList = listStack.pop();
+      processedLines.push(`</${closingList.type}>`);
     }
 
     text = processedLines.join('\n');
