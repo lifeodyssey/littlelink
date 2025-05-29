@@ -9,6 +9,15 @@
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 :root {
 	font-size:16px;
+
+	/* CSS Variables for theming */
+	--heading-color: #1a1a1a;
+	--text-color: #1a1a1a;
+	--button-background: #f8f9fa;
+	--button-border-color: rgba(0, 0, 0, 0.1);
+	--link-color: #2457F5;
+	--link-hover-color: #083BDA;
+	--code-background: #f1f3f4;
 }
 
 /* Grid
@@ -16,7 +25,7 @@
   .container {
 	position:relative;
 	width:100%;
-	max-width:37.5rem;     				/* 600px */
+	max-width:50rem;     				/* 800px - increased for better desktop experience */
     text-align:center;
 	margin:0 auto;
 	padding:3rem 1.25rem 0 1.25rem;
@@ -100,7 +109,7 @@
   --scale-3:1.953rem;       /* 31px */
   --scale-4:2.441rem;       /* 39px */
   --scale-5:3.052rem;       /* 49px */
-  
+
   /* Spacing units */
   --spacing-xs:0.5rem;      /* 8px */
   --spacing-s:1rem;         /* 16px */
@@ -237,7 +246,7 @@ a:hover {
   .avatar--rounded {
 	border-radius: 50%;
   }
-  
+
   /* Modifier for slightly rounded corners */
   .avatar--soft {
 	border-radius: 0.5rem;   /* 8px rounded corners */
@@ -246,10 +255,19 @@ a:hover {
 /* Theme System
   –––––––––––––––––––––––––––––––––––––––––––––––––– */
 /* Light theme is default above */
-  
+
 /* Dark theme */
 :root.theme-dark {
 	color-scheme:dark;
+
+	/* Dark theme variables */
+	--heading-color: #ffffff;
+	--text-color: #ffffff;
+	--button-background: rgba(255, 255, 255, 0.05);
+	--button-border-color: rgba(255, 255, 255, 0.1);
+	--link-color: #4899F7;
+	--link-hover-color: #7AB8FF;
+	--code-background: rgba(255, 255, 255, 0.1);
 }
 :root.theme-dark :focus-visible {
 	outline: 2px solid #4899F7;
@@ -271,6 +289,16 @@ a:hover {
 	color-scheme:light dark;
 }
 @media (prefers-color-scheme:dark) {
+	:root.theme-auto {
+		/* Dark theme variables for auto theme */
+		--heading-color: #ffffff;
+		--text-color: #ffffff;
+		--button-background: rgba(255, 255, 255, 0.05);
+		--button-border-color: rgba(255, 255, 255, 0.1);
+		--link-color: #4899F7;
+		--link-hover-color: #7AB8FF;
+		--code-background: rgba(255, 255, 255, 0.1);
+	}
 	:root.theme-auto body {
 	background-color:#121212;
 	color:#ffffff;
@@ -379,4 +407,311 @@ ul li {
 	font-weight:800;
 	src:url('../fonts/open-sans-v34-vietnamese_latin-ext_latin_hebrew_greek-ext_greek_cyrillic-ext_cyrillic-800.eot');
 	src:url('../fonts/open-sans-v34-vietnamese_latin-ext_latin_hebrew_greek-ext_greek_cyrillic-ext_cyrillic-800.eot?#iefix') format('embedded-opentype'),url('../fonts/open-sans-v34-vietnamese_latin-ext_latin_hebrew_greek-ext_greek_cyrillic-ext_cyrillic-800.woff2') format('woff2'),url('../fonts/open-sans-v34-vietnamese_latin-ext_latin_hebrew_greek-ext_greek_cyrillic-ext_cyrillic-800.woff') format('woff'),url('../fonts/open-sans-v34-vietnamese_latin-ext_latin_hebrew_greek-ext_greek_cyrillic-ext_cyrillic-800.ttf') format('truetype'),url('../fonts/open-sans-v34-vietnamese_latin-ext_latin_hebrew_greek-ext_greek_cyrillic-ext_cyrillic-800.svg#OpenSans') format('svg');
+}
+
+/* Booking Page Specific Styles
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+/* Section styling */
+.section {
+  margin: var(--spacing-xl) 0;
+  text-align: left;
+}
+
+.section-title {
+  font-size: var(--scale-3);
+  font-weight: 700;
+  margin-bottom: var(--spacing-l);
+  color: var(--heading-color, #1a1a1a);
+  text-align: center;
+}
+
+/* Language toggle */
+.language-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: var(--spacing-l);
+}
+
+.language-toggle a {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--button-border-color, rgba(0, 0, 0, 0.1));
+  border-radius: 0.25rem;
+  text-decoration: none;
+  color: var(--text-color, #1a1a1a);
+  background-color: var(--button-background, transparent);
+  transition: all 0.2s ease;
+}
+
+.language-toggle a.active {
+  background-color: var(--heading-color, #1a1a1a);
+  color: white;
+}
+
+.language-toggle a:hover:not(.active) {
+  background-color: var(--button-background, rgba(0, 0, 0, 0.05));
+}
+
+/* Note items - improved desktop layout */
+.note-item {
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  background-color: var(--button-background, #f8f9fa);
+  border-left: 4px solid var(--heading-color, #1a1a1a);
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  border: 1px solid var(--button-border-color, rgba(0, 0, 0, 0.1));
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.note-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.note-item p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Button group improvements */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  align-items: center;
+}
+
+/* FAQ Container - Desktop optimized */
+#faq-container {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: var(--spacing-l);
+}
+
+/* FAQ Items - Enhanced styling */
+.faq-item {
+  background-color: var(--button-background, #ffffff);
+  border: 1px solid var(--button-border-color, rgba(0, 0, 0, 0.1));
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.faq-item:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.faq-question {
+  padding: 1.5rem;
+  font-weight: 600;
+  font-size: var(--scale-1);
+  cursor: pointer;
+  background-color: var(--button-background, #f8f9fa);
+  border-bottom: 1px solid var(--button-border-color, rgba(0, 0, 0, 0.1));
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.faq-question:hover {
+  background-color: var(--button-background, rgba(0, 0, 0, 0.02));
+}
+
+.faq-question::after {
+  content: '+';
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  font-weight: 300;
+  transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-question::after {
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.faq-answer {
+  padding: 0 1.5rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background-color: var(--button-background, #ffffff);
+}
+
+.faq-item.active .faq-answer {
+  padding: 1.5rem;
+  max-height: 1000px;
+}
+
+/* Enhanced markdown styling in FAQ answers */
+.faq-answer p {
+  margin: 0 0 1rem 0;
+  line-height: 1.7;
+}
+
+.faq-answer p:last-child {
+  margin-bottom: 0;
+}
+
+.faq-answer ul {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.faq-answer li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.faq-answer strong {
+  font-weight: 600;
+  color: var(--heading-color, #1a1a1a);
+}
+
+.faq-answer a {
+  color: var(--link-color, #2457F5);
+  text-decoration: underline;
+}
+
+.faq-answer a:hover {
+  color: var(--link-hover-color, #083BDA);
+}
+
+/* Code styling in FAQ answers */
+.faq-answer code {
+  background-color: var(--code-background, #f1f3f4);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.9em;
+}
+
+.faq-answer pre {
+  background-color: var(--code-background, #f1f3f4);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.faq-answer pre code {
+  background: none;
+  padding: 0;
+}
+
+/* Responsive design for desktop */
+@media (min-width: 768px) {
+  .container {
+    padding: var(--spacing-xl) var(--spacing-l) 0 var(--spacing-l);
+  }
+
+  #faq-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .note-item {
+    padding: 2rem;
+  }
+
+  .button-group {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 60rem; /* 960px for larger screens */
+  }
+
+  /* Two-column layout for FAQ on large screens */
+  #faq-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Dark theme support for booking page */
+@media (prefers-color-scheme: dark) {
+  :root.theme-auto .faq-item,
+  :root.theme-auto .note-item,
+  :root.theme-auto .language-toggle a {
+    border-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  :root.theme-auto .faq-question {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  :root.theme-auto .faq-answer {
+    background-color: rgba(255, 255, 255, 0.03);
+  }
+
+  :root.theme-auto .language-toggle a.active {
+    background-color: #ffffff;
+    color: #121212;
+  }
+}
+
+:root.theme-dark .faq-item,
+:root.theme-dark .note-item,
+:root.theme-dark .language-toggle a {
+  border-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+:root.theme-dark .faq-question {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+:root.theme-dark .faq-answer {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+:root.theme-dark .language-toggle a.active {
+  background-color: #ffffff;
+  color: #121212;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .faq-item,
+  .note-item {
+    padding: 1rem;
+  }
+
+  .faq-question {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .faq-answer {
+    padding: 0 1rem;
+  }
+
+  .faq-item.active .faq-answer {
+    padding: 1rem;
+  }
+
+  .button-group {
+    gap: 0.75rem;
+  }
+
+  .language-toggle {
+    gap: 0.5rem;
+  }
+
+  .language-toggle a {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
 }

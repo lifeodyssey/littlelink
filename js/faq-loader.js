@@ -12,35 +12,116 @@ class FAQLoader {
   }
 
   /**
-   * Convert simple Markdown syntax to HTML
+   * Convert enhanced Markdown syntax to HTML
    * @param {string} text - Text containing Markdown syntax
    * @returns {string} - Converted HTML
    */
   parseMarkdown(text) {
-    // Convert list items
-    text = text.replace(/^-\s+(.+)$/gm, '<li>$1</li>');
+    // Escape HTML entities first
+    text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-    // Wrap consecutive list items in ul tags
-    text = text.replace(/(<li>.*<\/li>)/gs, function(match) {
-      return '<ul>' + match + '</ul>';
+    // Convert code blocks (triple backticks)
+    text = text.replace(/```(\w+)?\n([\s\S]*?)```/g, function(_, lang, code) {
+      const language = lang ? ` class="language-${lang}"` : '';
+      return `<pre><code${language}>${code.trim()}</code></pre>`;
     });
+
+    // Convert inline code (single backticks)
+    text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+    // Convert headers (## and ###)
+    text = text.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+    text = text.replace(/^## (.+)$/gm, '<h2>$1</h2>');
 
     // Convert bold text
     text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
+    // Convert italic text
+    text = text.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+
     // Convert links [text](url)
     text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
 
-    // Handle line breaks: double newlines become paragraph separators, single newlines become <br>
-    text = text.replace(/\n\n/g, '</p><p>');
-    text = text.replace(/\n/g, '<br>');
+    // Convert list items (handle nested lists)
+    const lines = text.split('\n');
+    let inList = false;
+    let listLevel = 0;
+    const processedLines = [];
 
-    // Wrap in paragraph tags if not starting with ul or p
-    if (!text.startsWith('<ul>') && !text.startsWith('<p>')) {
-      text = '<p>' + text + '</p>';
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const listMatch = line.match(/^(\s*)-\s+(.+)$/);
+
+      if (listMatch) {
+        const indent = listMatch[1].length;
+        const content = listMatch[2];
+        const currentLevel = Math.floor(indent / 4);
+
+        if (!inList) {
+          processedLines.push('<ul>');
+          inList = true;
+          listLevel = currentLevel;
+        } else if (currentLevel > listLevel) {
+          processedLines.push('<ul>');
+          listLevel = currentLevel;
+        } else if (currentLevel < listLevel) {
+          for (let j = listLevel; j > currentLevel; j--) {
+            processedLines.push('</ul>');
+          }
+          listLevel = currentLevel;
+        }
+
+        processedLines.push(`<li>${content}</li>`);
+      } else {
+        if (inList) {
+          for (let j = 0; j <= listLevel; j++) {
+            processedLines.push('</ul>');
+          }
+          inList = false;
+          listLevel = 0;
+        }
+        processedLines.push(line);
+      }
     }
 
-    return text;
+    // Close any remaining lists
+    if (inList) {
+      for (let j = 0; j <= listLevel; j++) {
+        processedLines.push('</ul>');
+      }
+    }
+
+    text = processedLines.join('\n');
+
+    // Handle paragraphs: split by double newlines, but preserve existing HTML tags
+    const paragraphs = text.split(/\n\s*\n/);
+    const processedParagraphs = paragraphs.map(para => {
+      para = para.trim();
+      if (!para) return '';
+
+      // Don't wrap if it's already an HTML block element
+      if (para.match(/^<(h[1-6]|ul|ol|li|pre|code|div|blockquote)/i)) {
+        return para;
+      }
+
+      // Don't wrap if it's just a closing tag
+      if (para.match(/^<\/(ul|ol|li|pre|code|div|blockquote)/i)) {
+        return para;
+      }
+
+      // Convert single line breaks to <br> within paragraphs
+      para = para.replace(/\n/g, '<br>');
+
+      return `<p>${para}</p>`;
+    });
+
+    text = processedParagraphs.filter(p => p).join('\n');
+
+    // Clean up extra whitespace and empty paragraphs
+    text = text.replace(/<p>\s*<\/p>/g, '');
+    text = text.replace(/\n+/g, '\n');
+
+    return text.trim();
   }
 
   /**
