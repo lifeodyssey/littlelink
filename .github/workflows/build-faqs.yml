@@ -115,6 +115,9 @@ jobs:
         # Check if deploy branch exists
         if git ls-remote --heads origin deploy | grep -q deploy; then
           echo "📥 Deploy branch exists, checking out..."
+          rm -rf data/faqs-*.json 2>/dev/null || true
+          rm conversion-results.txt 2>/dev/null || true
+          rm temp-convert.js 2>/dev/null || true
           git fetch origin deploy
           git checkout deploy
         else
