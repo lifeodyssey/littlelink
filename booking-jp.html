@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html class="theme-auto" lang="ja">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Page Title -->
+    <title>周（しゅう） 振佳と面談予約</title>
+    <link rel="icon" type="image/x-icon" href="/images/avatar.png">
+
+    <!-- Meta Description -->
+    <meta name="description" content="周（しゅう） 振佳との面談時間を予約する。">
+
+    <!-- Keywords -->
+    <meta name="keywords" content="周（しゅう） 振佳 予約, コンサルテーション, よくある質問">
+
+    <!-- Canonical URL -->
+    <meta rel="canonical" href="https://link.zhenjia.org/booking-jp">
+
+    <!-- Author Information -->
+    <meta name="author" content="Zhenjia Zhou">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/brands.css">
+
+    <style>
+      .faq-item {
+        margin-bottom: 20px;
+        background-color: var(--button-background);
+        border-radius: 8px;
+        padding: 15px;
+        transition: all 0.2s ease;
+      }
+
+      .faq-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .faq-question {
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      .faq-answer {
+        color: var(--text-color);
+      }
+
+      .language-toggle {
+        text-align: right;
+        margin-bottom: 20px;
+      }
+
+      .language-toggle a {
+        padding: 5px 10px;
+        margin-left: 5px;
+        border-radius: 4px;
+        background: var(--button-background);
+        color: var(--heading-color);
+        text-decoration: none;
+        font-size: 0.9em;
+      }
+
+      .section {
+        margin-bottom: 40px;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+        font-size: 1.5em;
+      }
+
+      .note-item {
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: var(--button-background);
+        border-left: 4px solid var(--heading-color);
+        border-radius: 4px;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .faq-item {
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+      }
+    </style>
+  </head>
+
+<body>
+    <div class="container">
+        <div class="column">
+            <nav role="navigation">
+                <a href="index.html" aria-label="Back to homepage">← メインページに戻る</a>
+            </nav>
+
+            <div class="language-toggle">
+              <a href="booking-en.html">English</a>
+              <a href="#" class="active">日本語</a>
+            </div>
+
+            <img class="avatar avatar--rounded" src="images/avatar.png" srcset="images/avatar@2x.png" alt="周 真佳">
+
+            <h1>周（しゅう） 振佳と面談予約</h1>
+
+            <div class="section">
+              <p>面談をスケジュールする前に、以下のよくある質問をご確認ください。あなたの質問にはすでに回答があるかもしれません！</p>
+            </div>
+
+            <!-- Important Notes Section -->
+            <div class="section">
+              <h2>重要な注意事項</h2>
+
+              <div class="note-item">
+                <p>予約の際はタイムゾーンにご注意ください。</p>
+              </div>
+
+              <div class="note-item">
+                <p>現在日本にいないため、直接の電話は避けています。</p>
+              </div>
+
+              <div class="note-item">
+                <p>予約確認後、私のZoomリンクが表示されます。もしあなた自身の会議リンクがある場合は、備考欄に記入することができます。</p>
+              </div>
+
+              <div class="note-item">
+                <p>よくある質問を以下にリストアップしておりますので、面会前にご確認いただけると幸いです。</p>
+              </div>
+            </div>
+
+            <!-- Booking Section -->
+            <div class="section">
+              <h2>ミーティングを予約する</h2>
+
+              <p>ミーティングをスケジュールする準備はできましたか？以下のオプションからお選びください：</p>
+
+              <!-- 30-minute Calendly button -->
+              <a class="button button-calendly" href="https://calendly.com/zhenjiazhou0127/30min" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/calendly.svg" alt="Calendly Logo">30分のミーティングを予約</a>
+
+              <!-- 1-hour Calendly button -->
+              <a class="button button-calendly" href="https://calendly.com/zhenjiazhou0127/new-meeting" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/calendly.svg" alt="Calendly Logo">1時間のミーティングを予約</a>
+
+              <!-- Email button -->
+              <a class="button button-default" href="mailto:zhenjiazhou0127@outlook.com" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-email.svg" alt="Email Icon">メールで予約する</a>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="section">
+              <h2>よくある質問</h2>
+
+              <div id="faq-container">
+                <!-- FAQs will be loaded here via JavaScript -->
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <footer>
+              <a href="privacy.html">プライバシーポリシー</a> | 周 振佳の人生旅路</a>
+            </footer>
+        </div>
+    </div>
+
+    <!-- FAQ Loader Script -->
+    <script src="js/faq-loader.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const faqLoader = new FAQLoader('faq-container');
+
+        faqLoader.loadFAQs('data/faqs-jp.json', {
+          loadingText: 'FAQを読み込み中...',
+          errorText: '申し訳ありませんが、FAQsの読み込み中にエラーが発生しました。後でもう一度お試しください。',
+          emptyText: '現在FAQはありません。'
+        });
+      });
+    </script>
+
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "711e59e527f64c0088452a8d761b2ef4"}'></script>
+    <!-- End Cloudflare Web Analytics -->
+</body>
+
+</html>
