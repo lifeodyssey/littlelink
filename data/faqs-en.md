@@ -97,6 +97,7 @@ If you are familiar with [CEFR](https://www.mext.go.jp/b_menu/shingi/chousa/kout
 - Reading: C1
 - Writing: C1
 
+
 ## VISA?
 
 I currently do not have a valid VISA to work in Japan. I require VISA sponsorship.
