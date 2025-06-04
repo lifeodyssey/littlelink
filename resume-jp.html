@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html class="theme-auto" lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Page Title -->
+  <title>周（しゅう） 振佳 - 経歴書</title>
+  <link rel="icon" type="image/x-icon" href="/images/avatar.png">
+
+  <!-- Meta Description -->
+  <meta name="description" content="周（しゅう） 振佳の経歴書と職歴 - ソフトウェアエンジニア、海洋学、技術専門家。">
+
+  <!-- Keywords -->
+  <meta name="keywords" content="周 振佳, 経歴書, ソフトウェアエンジニア, 海洋学, 履歴書, 職歴">
+
+  <!-- Canonical URL -->
+  <meta rel="canonical" href="https://link.zhenjia.org/resume-jp">
+
+  <!-- Author Information -->
+  <meta name="author" content="Zhenjia Zhou">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/brands.css">
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="column">
+      <nav role="navigation">
+        <a href="index.html" aria-label="Back to homepage">← メインページに戻る</a>
+      </nav>
+
+      <div class="language-toggle">
+        <a href="resume-en.html">English</a>
+        <a href="#" class="active">日本語</a>
+      </div>
+
+      <img class="avatar avatar--rounded" src="images/avatar.png" srcset="images/avatar@2x.png" alt="周 真佳">
+
+      <h1>周（しゅう） 振佳 - 経歴書</h1>
+
+      <div class="section">
+        <p>海洋学の専門知識を持つソフトウェアエンジニア。技術、写真、アウトドアアドベンチャーに情熱を注いでいます。</p>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="section">
+        <h2 class="section-title">よくある質問</h2>
+
+        <div id="faq-container">
+          <!-- FAQs will be loaded here via JavaScript -->
+        </div>
+      </div>
+
+      <!-- Resume Content Section -->
+      <div class="section">
+        <h2 class="section-title">職歴・経歴</h2>
+
+        <p>詳細な経歴書と職歴については、以下のオプションからご覧いただけます：</p>
+
+        <div class="button-group">
+          <a class="button button-stack-overflow" href="https://docs.google.com/spreadsheets/d/1mAjAEVXn5gkhLYdw-BeLEVQX2psbijMpAoHSYFNp6K8/edit?usp=sharing" target="_blank" rel="noopener" role="button">
+            <img class="icon" aria-hidden="true" src="images/icons/resume.svg" alt="Resume Icon">経歴書を見る
+          </a>
+
+          <a class="button button-default" href="mailto:zhenjiazhou0127@outlook.com" target="_blank" rel="noopener" role="button">
+            <img class="icon" aria-hidden="true" src="images/icons/generic-email.svg" alt="Email Icon">メールで経歴書を請求
+          </a>
+        </div>
+      </div>
+
+      <!-- Contact Section -->
+      <div class="section">
+        <h2 class="section-title">お問い合わせ</h2>
+
+        <p>一緒に働くことや私の経歴についてもっと知ることに興味がありますか？</p>
+
+        <div class="button-group">
+          <a class="button button-calendly" href="booking-jp.html" role="button">
+            <img class="icon" aria-hidden="true" src="images/icons/calendly.svg" alt="Calendar Icon">面談を予約する
+          </a>
+
+          <a class="button button-linked" href="https://www.linkedin.com/in/zhenjia-zhou/" target="_blank" rel="noopener" role="button">
+            <img class="icon" aria-hidden="true" src="images/icons/linkedin.svg" alt="LinkedIn Logo">LinkedInで繋がる
+          </a>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer>
+        <a href="privacy.html">プライバシーポリシー</a> | 周 振佳の人生旅路</a>
+      </footer>
+    </div>
+  </div>
+
+  <!-- FAQ Loader Script -->
+  <script src="js/faq-loader.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const faqLoader = new FAQLoader('faq-container');
+
+        faqLoader.loadFAQs('data/faqs-jp.json', {
+          loadingText: 'FAQを読み込み中...',
+          errorText: '申し訳ありませんが、FAQsの読み込み中にエラーが発生しました。後でもう一度お試しください。',
+          emptyText: '現在FAQはありません。'
+        });
+
+        // Add click handler for FAQ items
+        document.getElementById('faq-container').addEventListener('click', function(e) {
+          const faqItem = e.target.closest('.faq-item');
+          if (faqItem) {
+            faqItem.classList.toggle('active');
+          }
+        });
+      });
+    </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+    data-cf-beacon='{"token": "711e59e527f64c0088452a8d761b2ef4"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+
+</html>
