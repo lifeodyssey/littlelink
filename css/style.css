@@ -600,13 +600,13 @@ ul li {
 }
 
 .faq-answer li {
-  margin-bottom: 0.5rem;
-  line-height: 1.6;
+  margin-bottom: 0.25rem;
+  line-height: 1.5;
 }
 
 /* Ensure proper spacing for nested list items */
 .faq-answer li li {
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.125rem;
 }
 
 .faq-answer strong {

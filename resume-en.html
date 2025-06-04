@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html class="theme-auto" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Page Title -->
+  <title>Zhenjia Zhou - Resume</title>
+  <link rel="icon" type="image/x-icon" href="/images/avatar.png">
+
+  <!-- Meta Description -->
+  <meta name="description" content="Resume and professional background of Zhenjia Zhou - Software Engineer, Oceanography, and Technology Professional.">
+
+  <!-- Keywords -->
+  <meta name="keywords" content="Zhenjia Zhou, Resume, Software Engineer, Oceanography, CV, Professional Background">
+
+  <!-- Canonical URL -->
+  <meta rel="canonical" href="https://link.zhenjia.org/resume-en">
+
+  <!-- Author Information -->
+  <meta name="author" content="Zhenjia Zhou">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/brands.css">
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="column">
+      <nav role="navigation">
+        <a href="index.html" aria-label="Back to homepage">← Back to main page</a>
+      </nav>
+
+      <div class="language-toggle">
+        <a href="#" class="active">English</a>
+        <a href="resume-jp.html">日本語</a>
+      </div>
+
+      <img class="avatar avatar--rounded" src="images/avatar.png" srcset="images/avatar@2x.png" alt="Zhenjia Zhou">
+
+      <h1>Zhenjia Zhou - Resume</h1>
+
+      <div class="section">
+        <p>Software Engineer with expertise in Oceanography, passionate about technology, photography, and outdoor adventures.</p>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="section">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+
+        <div id="faq-container">
+          <!-- FAQs will be loaded here via JavaScript -->
+        </div>
+      </div>
+
+      <!-- Resume Content Section -->
+      <div class="section">
+        <h2 class="section-title">Professional Background</h2>
+
+        <p>You can view my detailed resume and professional background through the following options:</p>
+
+        <div class="button-group">
+          <a class="button button-stack-overflow" href="https://docs.google.com/document/d/1wPDNgLdOQwB51fnRS15iJuswV3mLn_h9EOVaaPL651M/edit?usp=sharing" target="_blank" rel="noopener" role="button">
+            <img class="icon" aria-hidden="true" src="images/icons/resume.svg" alt="Resume Icon">View Resume
+          </a>
+
+          <a class="button button-default" href="mailto:zhenjiazhou0127@outlook.com" target="_blank" rel="noopener" role="button">
+            <img class="icon" aria-hidden="true" src="images/icons/generic-email.svg" alt="Email Icon">Request Resume via Email
+          </a>
+        </div>
+      </div>
+
+      <!-- Contact Section -->
+      <div class="section">
+        <h2 class="section-title">Get in Touch</h2>
+
+        <p>Interested in working together or learning more about my background?</p>
+
+        <div class="button-group">
+          <a class="button button-calendly" href="booking-en.html" role="button">
+            <img class="icon" aria-hidden="true" src="images/icons/calendly.svg" alt="Calendar Icon">Schedule a Meeting
+          </a>
+
+          <a class="button button-linked" href="https://www.linkedin.com/in/zhenjia-zhou/" target="_blank" rel="noopener" role="button">
+            <img class="icon" aria-hidden="true" src="images/icons/linkedin.svg" alt="LinkedIn Logo">Connect on LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer>
+        <a href="privacy.html">Privacy Policy</a> | The life odyssey of Zhenjia</a>
+      </footer>
+    </div>
+  </div>
+
+  <!-- FAQ Loader Script -->
+  <script src="js/faq-loader.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const faqLoader = new FAQLoader('faq-container');
+
+        faqLoader.loadFAQs('data/faqs-en.json', {
+          loadingText: 'Loading FAQs...',
+          errorText: 'Sorry, there was an error loading the FAQs. Please try again later.',
+          emptyText: 'No FAQs available at the moment.'
+        });
+
+        // Add click handler for FAQ items
+        document.getElementById('faq-container').addEventListener('click', function(e) {
+          const faqItem = e.target.closest('.faq-item');
+          if (faqItem) {
+            faqItem.classList.toggle('active');
+          }
+        });
+      });
+    </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+    data-cf-beacon='{"token": "711e59e527f64c0088452a8d761b2ef4"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+
+</html>
