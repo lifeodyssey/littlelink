@@ -96,10 +96,17 @@ class FAQLoader {
         processedLines.push(`<li>${content}</li>`);
 
       } else {
-        // Not a list item - close all open lists
-        while (listStack.length > 0) {
-          const closingList = listStack.pop();
-          processedLines.push(`</${closingList.type}>`);
+        // Not a list item - but don't close lists for empty lines or paragraphs within list contexts
+        const isEmpty = line.trim() === '';
+        const isBoldText = line.match(/^\*\*.*\*\*$/);
+        
+        // Only close lists if we encounter a significant structural element
+        // Keep lists open for empty lines, bold text headers, etc.
+        if (!isEmpty && !isBoldText) {
+          while (listStack.length > 0) {
+            const closingList = listStack.pop();
+            processedLines.push(`</${closingList.type}>`);
+          }
         }
         processedLines.push(line);
       }

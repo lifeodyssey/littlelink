@@ -85,17 +85,9 @@ I have passed JLPT N2.
 
 If you are familiar with [CEFR](https://www.mext.go.jp/b_menu/shingi/chousa/koutou/091/gijiroku/__icsFiles/afieldfile/2018/07/27/1407616_003.pdf), here is my language proficiency according to CEFR:
 
-**Japanese:**
-- Oral: B1
-- Listening: B2-C1
-- Reading: B2-C1
-- Writing: B1
+**Japanese:** Oral: B1 | Listening: B2-C1 | Reading: B2-C1 | Writing: B1
 
-**English:**
-- Oral: C1
-- Listening: C1
-- Reading: C1
-- Writing: C1
+**English:** Oral: C1 | Listening: C1 | Reading: C1 | Writing: C1
 
 
 ## VISA?
