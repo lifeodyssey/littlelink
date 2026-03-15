@@ -45,7 +45,9 @@
 
 AIをプログラミング支援に活用した経験があります。
 
-Langchain、FastAPI、AWS OpenSearch、AWS Bedrockを使ってLLM関連アプリケーションを構築した経験があります。
+Langchain、FastAPI、AWS OpenSearch、AWS Bedrockを使ってAIエージェントを構築した経験があります。
+
+チームをリードしてAgentic Codingへの転換を推進した経験があります。
 
 LLMモデルやアルゴリズム自体の開発経験はありません。
 

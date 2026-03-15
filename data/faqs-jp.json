@@ -18,7 +18,7 @@
     },
     {
       "question": "AI関連の経験は？",
-      "answer": "AIをプログラミング支援に活用した経験があります。\n\nLangchain、FastAPI、AWS OpenSearch、AWS Bedrockを使ってLLM関連アプリケーションを構築した経験があります。\n\nLLMモデルやアルゴリズム自体の開発経験はありません。"
+      "answer": "AIをプログラミング支援に活用した経験があります。\n\nLangchain、FastAPI、AWS OpenSearch、AWS Bedrockを使ってAIエージェントを構築した経験があります。\n\nチームをリードしてAgentic Codingへの転換を推進した経験があります。\n\nLLMモデルやアルゴリズム自体の開発経験はありません。"
     },
     {
       "question": "現在の給与と希望給与は？",
