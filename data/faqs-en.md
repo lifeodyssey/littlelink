@@ -46,7 +46,9 @@ If you have read books about Clean Code, Refactoring, Test-Driven Development, a
 
 I have experience using AI to assist with programming.
 
-I have experience using Langchain, FastAPI, AWS OpenSearch, and AWS Bedrock to build LLM-related applications.
+I have experience using Langchain, FastAPI, AWS OpenSearch, and AWS Bedrock to build AI Agent.
+
+I have experience leading teams in Agentic Coding transformation.
 
 I don't have experience developing LLM models and algorithms.
 
