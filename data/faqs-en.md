@@ -66,7 +66,7 @@ I'm not someone who primarily expects a high salary. However, my current company
 
 If the company could offer similar benefits, I would be open to discussing a lower salary.
 
-However, if not, considering the cost of living in Japan, I would expect 800万円 annually (before tax) in Japanese Yen.
+However, if not, considering the cost of living in Japan, I would expect 600万円 annually (before tax) in Japanese Yen.
 
 ## Job Preference?
 
