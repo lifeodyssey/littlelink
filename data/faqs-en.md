@@ -52,11 +52,9 @@ I have experience leading teams in Agentic Coding transformation.
 
 I don't have experience developing LLM models and algorithms.
 
-## Current Salary and Expected Salary?
+## Expected Salary?
 
-My current annual salary is XXX万円 (before tax) in Japanese Yen.
-
-My expected annual salary is 600万円 (before tax) in Japanese Yen.
+My expected annual salary is 600万円〜800万円 (before tax) in Japanese Yen, which may fluctuate depending on exchange rates.
 
 I'm not someone who primarily expects a high salary. However, my current company provides me with good benefits:
 
@@ -66,9 +64,9 @@ I'm not someone who primarily expects a high salary. However, my current company
 -   Health Insurance: It covers all my family members.
 -   No overtime: I work exactly 8 hours per day.
 
-If the company could offer similar benefits, I would be open to accepting XXX万円 annually (before tax) in Japanese Yen.
+If the company could offer similar benefits, I would be open to discussing a lower salary.
 
-However, if not, considering the cost of living in Japan, I would expect 600万円 annually (before tax) in Japanese Yen.
+However, if not, considering the cost of living in Japan, I would expect 800万円 annually (before tax) in Japanese Yen.
 
 ## Job Preference?
 
