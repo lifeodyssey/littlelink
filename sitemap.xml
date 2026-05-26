@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://link.zhenjia.dev/</loc>
   </url>
   <url>
-    <loc>https://link.zhenjia.dev/booking</loc>
+    <loc>https://link.zhenjia.dev/booking-en</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://link.zhenjia.dev/booking-en" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://link.zhenjia.dev/booking-jp" />
   </url>
   <url>
-    <loc>https://link.zhenjia.dev/booking-en</loc>
+    <loc>https://link.zhenjia.dev/booking-jp</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://link.zhenjia.dev/booking-en" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://link.zhenjia.dev/booking-jp" />
   </url>
   <url>
     <loc>https://link.zhenjia.dev/resume-en</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://link.zhenjia.dev/resume-en" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://link.zhenjia.dev/resume-jp" />
   </url>
   <url>
     <loc>https://link.zhenjia.dev/resume-jp</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://link.zhenjia.dev/resume-en" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://link.zhenjia.dev/resume-jp" />
   </url>
 </urlset>
