@@ -127,8 +127,10 @@ jobs:
         echo "🔀 Merging main branch content..."
         git merge main --no-commit --allow-unrelated-histories || true
 
-        # Reset any conflicts and keep main's content
+        # Reset any conflicts and rebuild deploy branch from main's tracked files.
         git reset HEAD
+        git rm -r --ignore-unmatch .
+        git clean -fd
         git checkout main -- .
 
     - name: 📋 Copy generated JSON files
