@@ -1,0 +1,29 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://link.zhenjia.dev/",
+      "service-doc": [
+        {
+          "href": "https://link.zhenjia.dev/llms.txt",
+          "type": "text/markdown",
+          "title": "AI-readable site guide"
+        },
+        {
+          "href": "https://link.zhenjia.dev/sitemap.xml",
+          "type": "application/xml",
+          "title": "Sitemap"
+        }
+      ],
+      "related": [
+        {
+          "href": "https://zhenjia.dev/",
+          "title": "Zhenjia's canonical blog"
+        },
+        {
+          "href": "https://github.com/lifeodyssey",
+          "title": "GitHub profile"
+        }
+      ]
+    }
+  ]
+}

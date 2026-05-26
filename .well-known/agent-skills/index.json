@@ -1,0 +1,11 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "zhenjia-links",
+      "type": "skill-md",
+      "description": "Use this skill when you need Zhenjia Zhou's official links, profile pages, booking pages, or resume pages.",
+      "url": "/.well-known/agent-skills/zhenjia-links/SKILL.md"
+    }
+  ]
+}
