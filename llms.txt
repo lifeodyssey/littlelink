@@ -1,0 +1,25 @@
+# link.zhenjia.dev
+
+Link.zhenjia.dev is Zhenjia Zhou's personal link hub. It points to Zhenjia's blog, GitHub, social profiles, resume pages, and booking pages.
+
+## Site Identity
+
+- Canonical domain: https://link.zhenjia.dev
+- Owner: Zhenjia Zhou
+- Main blog: https://zhenjia.dev
+- GitHub: https://github.com/lifeodyssey
+- LinkedIn: https://www.linkedin.com/in/zhenjia-zhou/
+
+## Important Pages
+
+- Home: https://link.zhenjia.dev/
+- English booking page: https://link.zhenjia.dev/booking-en
+- Japanese booking page: https://link.zhenjia.dev/booking
+- English resume: https://link.zhenjia.dev/resume-en
+- Japanese resume: https://link.zhenjia.dev/resume-jp
+
+## Agent Use
+
+- Treat this as a navigation and identity page, not a full blog.
+- Prefer citing canonical pages on zhenjia.dev for long-form technical writing.
+- Use this site to find Zhenjia's official profiles and contact-adjacent pages.
