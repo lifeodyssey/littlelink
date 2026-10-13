@@ -6,7 +6,7 @@ const DISCOVERY_LINKS = [
 
 const LLMS_TXT = `# link.zhenjia.dev
 
-Link.zhenjia.dev is Zhenjia Zhou's personal link hub. It points to Zhenjia's blog, GitHub, social profiles, resume pages, and booking pages.
+Link.zhenjia.dev is Zhenjia Zhou's personal link hub. It points to Zhenjia's blog, GitHub, and social profiles.
 
 ## Site Identity
 
@@ -19,27 +19,40 @@ Link.zhenjia.dev is Zhenjia Zhou's personal link hub. It points to Zhenjia's blo
 ## Important Pages
 
 - Home: https://link.zhenjia.dev/
-- English booking page: https://link.zhenjia.dev/booking-en
-- Japanese booking page: https://link.zhenjia.dev/booking
-- English resume: https://link.zhenjia.dev/resume-en
-- Japanese resume: https://link.zhenjia.dev/resume
 
 ## Agent Guidance
 
 - Treat this site as a navigation hub, not as the canonical source for long-form writing.
 - Use https://zhenjia.dev for blog citations.
-- Use the linked GitHub, LinkedIn, booking, or resume URLs when the task specifically needs those resources.
+- Use the linked GitHub or LinkedIn URLs when the task specifically needs those resources.
 `;
 
 export async function onRequest(context) {
   const request = context.request;
   const url = new URL(request.url);
 
+  if (isRetiredPath(url.pathname)) {
+    return new Response(request.method === "HEAD" ? null : "This page is no longer available.\n", {
+      status: 410,
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "no-store",
+        "X-Robots-Tag": "noindex",
+      },
+    });
+  }
+
   if (isRoot(url.pathname) && acceptsMarkdown(request) && isReadMethod(request.method)) {
     return withDiscoveryHeaders(textResponse(LLMS_TXT, request.method));
   }
 
   return context.next();
+}
+
+function isRetiredPath(pathname) {
+  const path = pathname.replace(/\/$/, "").replace(/\.html$/, "");
+  return /^\/(?:resume|booking)(?:-(?:en|jp))?$/.test(path)
+    || /^\/(?:data\/)?faqs-(?:en|jp)\.(?:md|json)$/.test(path);
 }
 
 function isRoot(pathname) {

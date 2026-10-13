@@ -1,6 +1,6 @@
 # link.zhenjia.dev
 
-Link.zhenjia.dev is Zhenjia Zhou's personal link hub. It points to Zhenjia's blog, GitHub, social profiles, resume pages, and booking pages.
+Link.zhenjia.dev is Zhenjia Zhou's personal link hub. It points to Zhenjia's blog, GitHub, and social profiles.
 
 ## Site Identity
 
@@ -13,10 +13,6 @@ Link.zhenjia.dev is Zhenjia Zhou's personal link hub. It points to Zhenjia's blo
 ## Important Pages
 
 - Home: https://link.zhenjia.dev/
-- English booking page: https://link.zhenjia.dev/booking-en
-- Japanese booking page: https://link.zhenjia.dev/booking
-- English resume: https://link.zhenjia.dev/resume-en
-- Japanese resume: https://link.zhenjia.dev/resume-jp
 
 ## Agent Use
 

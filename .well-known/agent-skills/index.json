@@ -4,7 +4,7 @@
     {
       "name": "zhenjia-links",
       "type": "skill-md",
-      "description": "Use this skill when you need Zhenjia Zhou's official links, profile pages, booking pages, or resume pages.",
+      "description": "Use this skill when you need Zhenjia Zhou's official links or profile pages.",
       "url": "/.well-known/agent-skills/zhenjia-links/SKILL.md"
     }
   ]
